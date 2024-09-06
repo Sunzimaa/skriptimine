@@ -1,0 +1,22 @@
+   #!/bin/bash
+
+   # See skript väljastab kuupäeva ja aja
+
+   # Väljasta praegune kuupäev ja kellaaeg
+   echo "Today is $(date '+%A, %B %d, %Y')"
+   echo "Time is $(date '+%H:%M')"
+
+   # Väljasta praegune kuu kalender
+   echo
+   echo "Calendar of $(date '+%B %Y'):"
+   cal
+   EOF
+
+   # Väljasta praegune kuupäev ja kellaaeg
+   echo "Today is $(date '+%A, %B %d, %Y')"
+   echo "Time is $(date '+%H:%M')"
+
+   # Väljasta praegune kuu kalender
+   echo
+   echo "Calendar of $(date '+%B %Y'):"
+   cal
