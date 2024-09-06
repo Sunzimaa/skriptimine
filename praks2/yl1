@@ -1,0 +1,10 @@
+#!/bin/bash
+# See skript tervitab kasutajat
+
+echo -n "Tere, "
+
+username=$(whoami)
+
+echo -n "$username"
+
+echo "!"
