@@ -1,0 +1,101 @@
+#!/bin/bash
+ 
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install dialog as root
+install_dialog() {
+    echo "Dialog is not installed. Attempting to install it..."
+    if command_exists apt-get; then
+        sudo apt-get update && sudo apt-get install -y dialog
+    elif command_exists yum; then
+        sudo yum install -y dialog
+    elif command_exists dnf; then
+        sudo dnf install -y dialog
+    elif command_exists pacman; then
+        sudo pacman -S --noconfirm dialog
+    else
+        echo "Error: Unable to install dialog. Please install it manually and run this script again."
+        exit 1
+    fi
+}
+
+# Check if git is installed
+if ! command_exists git; then
+    echo "Error: git is not installed. Please install git and try again."
+    exit 1
+fi
+
+# Check if dialog is installed, if not, install it
+if ! command_exists dialog; then
+    install_dialog
+fi
+
+# Change to the specified directory
+cd /home/marten/skriptimine/ || { echo "Error: Unable to change to /home/marten/skriptimine/"; exit 1; }
+
+# Check if the current directory is a git repository
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: The current directory is not a git repository."
+    echo "Please initialize a git repository in this directory and set up a remote before using this script."
+    exit 1
+fi
+
+# Create a temporary file to store the selection
+temp_file=$(mktemp)
+
+# Use dialog to create a file selection menu
+dialog --title "Select a file to upload" --fselect /home/marten/skriptimine/ 14 48 2>"$temp_file"
+
+# Read the selected file
+selected_file=$(cat "$temp_file")
+rm "$temp_file"
+
+# Check if a file was selected
+if [ -z "$selected_file" ]; then
+    echo "No file selected. Exiting."
+    exit 1
+fi
+
+# Check if the selected item is a file (not a directory)
+if [ ! -f "$selected_file" ]; then
+    echo "Error: The selected item is not a file. Please select a file, not a directory."
+    exit 1
+fi
+
+# Get the relative path of the file
+relative_path=$(realpath --relative-to=/home/marten/skriptimine/ "$selected_file")
+
+# Prompt user for commit message
+read -p "Enter a commit message: " commit_message
+
+# Add only the selected file and commit
+git add "$relative_path"
+git commit -m "$commit_message"
+
+# Push the changes
+echo "Pushing changes to GitHub..."
+git push
+
+# Check if push was successful
+if [ $? -eq 0 ]; then
+    echo "File uploaded successfully!"
+    echo "The file '$relative_path' has been pushed to your GitHub repository."
+else
+    echo "Error: Failed to push the changes to GitHub."
+    echo "Please ensure you have the necessary permissions and your local repository is up to date."
+    exit 1
+fi
+
+
+
+
+
+
+
+
+
+
+
