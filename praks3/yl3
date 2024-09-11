@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Küsi kasutajalt ainepunktide arv
+read -p "Sisesta ainepunktide arv: " eap
+
+# Küsi kasutajalt nädalate arv
+read -p "Sisesta nädalate arv: " weeks
+
+# Arvuta ühe nädala eeldatav ajakulu
+total_hours=$(echo "$eap * 26" | bc)
+weekly_hours=$(echo "scale=2; $total_hours / $weeks" | bc)
+
+# Ümarda tulemus ülespoole täisarvuni
+rounded_hours=$(echo "($weekly_hours + 0.9)/1" | bc)
+
+# Väljasta tulemus
+echo "Ühe nädala eeldatav ajakulu: $rounded_hours tundi"
