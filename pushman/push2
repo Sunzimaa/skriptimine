@@ -1,0 +1,88 @@
+#!/bin/bash
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Check if git is installed
+if ! command_exists git; then
+    echo "Error: git is not installed. Please install git and try again."
+    exit 1
+fi
+
+# Change to the specified directory
+cd /home/marten/skriptimine/ || { echo "Error: Unable to change to /home/marten/skriptimine/"; exit 1; }
+
+# Check if the current directory is a git repository
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+    echo "Error: The current directory is not a git repository."
+    echo "Would you like to initialize a new git repository? (y/n)"
+    read -r answer
+    if [[ $answer =~ ^[Yy]$ ]]; then
+        git init
+        echo "Git repository initialized."
+    else
+        echo "Exiting script."
+        exit 1
+    fi
+fi
+
+# Use dialog to create a file selection interface
+if ! command_exists dialog; then
+    echo "Error: dialog is not installed. Please install dialog and try again."
+    exit 1
+fi
+
+# Create a temporary file to store the selection
+temp_file=$(mktemp)
+
+# Use dialog to create a file selection menu
+dialog --title "Select a file to upload" --fselect /home/marten/skriptimine/ 14 48 2>"$temp_file"
+
+# Read the selected file
+selected_file=$(cat "$temp_file")
+rm "$temp_file"
+
+# Check if a file was selected
+if [ -z "$selected_file" ]; then
+    echo "No file selected. Exiting."
+    exit 1
+fi
+
+# Prompt user for remote repository URL if not set
+remote_url=$(git config --get https://github.com/Sunzimaa/skriptimine.git)
+if [ -z "$remote_url" ]; then
+    echo "No remote repository set. Please enter the GitHub repository URL:"
+    read -r remote_url
+    git remote add origin "$remote_url"
+fi
+
+# Prompt user for commit message
+read -p "Enter a commit message: " commit_message
+
+# Add the file and commit
+git add "$selected_file"
+git commit -m "$commit_message"
+
+# Push the changes
+echo "Pushing changes to GitHub..."
+git push -u origin master  # Use -u to set upstream for the first push
+
+# Check if push was successful
+if [ $? -eq 0 ]; then
+    echo "File uploaded successfully!"
+    echo "The file has been pushed to your GitHub repository."
+else
+    echo "Error: Failed to push the changes to GitHub."
+    echo "Please ensure you have the necessary permissions and your local repository is up to date."
+    exit 1
+fi
+
+
+
+
+
+
+
+
