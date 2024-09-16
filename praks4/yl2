@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Skripti eesmärk: Arvutada vajalike busside arv reisijate transportimiseks,
+# arvestades, et kui on ülejäänud reisijaid, lisatakse üks buss juurde.
+
+# Küsi kasutajalt, mitu reisijat on grupis
+read -p "Sisesta reisijate arv: " reisijad
+
+# Küsi kasutajalt, mitu kohta on ühes bussis
+read -p "Sisesta kohtade arv bussis: " kohad
+
+# Arvuta, mitu bussi on vaja
+vajalikud_bussid=$(( (reisijad + kohad - 1) / kohad ))
+
+# Tulemus
+echo "Kokku on vaja $vajalikud_bussid bussi"
