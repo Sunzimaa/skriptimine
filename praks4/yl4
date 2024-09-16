@@ -1,0 +1,21 @@
+#!/bin/bash
+# See skript kontrollib, kas antud täisarv on paaris või paaritu
+
+# Kontrollime, kas täpselt üks argument on antud
+if [ "$#" -ne 1 ]; then
+  echo "Kaivita see skript koos arvuga mille paarsus soovid kontrollida. Näiteks: ./paarsus 3"
+  exit 1
+fi
+
+# Kontrollime, kas argument on täisarv
+if ! [[ "$1" =~ ^-?[0-9]+$ ]]; then
+  echo "Sisesta täisarv."
+  exit 1
+fi
+
+# Kontrollime arvu paarsust
+if [ $(($1 % 2)) -eq 0 ]; then
+  echo "Antud arv on paaris"
+else
+  echo "Antud arv on paaritu"
+fi
