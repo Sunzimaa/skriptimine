@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Skript , mis prindib 5x5 tähe paterni
+
+for i in {1..5}
+do
+    printf "%d. " $i
+    
+    for j in {1..5}
+    do
+        printf "* "
+    done
+    
+    echo
+done
