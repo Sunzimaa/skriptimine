@@ -1,15 +1,16 @@
 #!/bin/bash
-# Skript bussiekskursioonide korraldajale, mis arvutab täielikult täidetud busside arvu ja maha jäänud inimeste arvu.
+echo -n "Mitu reisijat on?: "
+read mitu_reisijat
+echo -n "Mitu kohta on bussis?: "
+read mitu_kohti
 
-echo -n "Sisesta reisijate arv: "
-read reisijad
+taidetud_bussid=$((mitu_reisijat / mitu_kohti))
+maha_jaanud_reisijad=$((mitu_reisijat % mitu_kohti))
 
-echo -n "Sisesta bussi kohtade arv: "
-read kohad
+if [ $taidetud_bussid -eq 0 ] && [ $maha_jaanud_reisijad -gt 0 ]; then
+    taidetud_bussid=1
+    maha_jaanud_reisijad=0
+fi
 
-# Arvutame täielikult täidetud busside arvu ja maha jäänud inimeste arvu.
-taitetud=$((reisijad / kohad))
-mahajaanud=$((reisijad % kohad))
-
-echo "Täielikult täidetud busside arv: $taitetud"
-echo "Maha jäänud inimeste arv: $mahajaanud"
+echo "Täielikult täidetud busside arv: $taidetud_bussid"
+echo "Maha jäänud reisiad $maha_jaanud_reisijad "
