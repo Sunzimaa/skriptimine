@@ -1,0 +1,22 @@
+#!/bin/bash
+# Skript tervitab kasutajat vastavalt sisestatud kellaajale
+
+echo -n "Sisesta aja väärtus (0-23): "
+read aeg
+#võtab kasutajat
+user=$USER
+#vaatab, kas vahemikkuse jääb
+if [ $aeg -ge 6 -a $aeg -lt 12 ]; then
+  echo "Tere hommikust, ${user}!"
+elif [ $aeg -ge 12 -a $aeg -lt 18 ]; then
+  echo "Tere päevast, ${user}!"
+elif [ $aeg -ge 18 -a $aeg -lt 22 ]; then
+  echo "Tere õhtust, ${user}!"
+elif [ $aeg -ge 22 -a $aeg -lt 24 ]; then
+  echo "Head ööd, ${user}!"
+elif [ $aeg -ge 0 -a $aeg -lt 5 ]; then
+  echo "Head ööd, ${user}!"
+else
+  #ei sobi
+  echo "Sisend on vale"
+fi
