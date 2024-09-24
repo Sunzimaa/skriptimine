@@ -10,7 +10,7 @@
    echo
    echo "Calendar of $(date '+%B %Y'):"
    cal
-   EOF
+  
 
    # Väljasta praegune kuupäev ja kellaaeg
    echo "Today is $(date '+%A, %B %d, %Y')"
