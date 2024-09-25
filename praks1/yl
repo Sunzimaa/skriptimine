@@ -1,0 +1,6 @@
+#!/bin/bash
+# See skript tervitab kasutajat
+
+echo -n "Tere, "
+read -p "Sisesta oma nimi: " kasutajanimi
+echo "$kasutajanimi!"
