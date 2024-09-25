@@ -1,0 +1,20 @@
+#!/bin/bash
+# nimi: Marten Kabral
+# Skripti nimi: menu
+# Skript väljastab menüü ja toidu kirjeldused
+
+echo "1) liha ja kartulid"
+echo "2) kala ja friikad"
+echo "3) supp ja salat"
+echo "4) tee ja küpsised"
+# küsib kasutajalt menüü valiku
+read -p "Tee oma valik (1 või 2 või 3 või 4): " valik
+
+# annab vastava vastuse
+case $valik in
+    1) echo "Väga maitsev, aga jälgi oma tervist!";;
+    2) echo "Brititoit on maitsev!";;
+    3) echo "Nii tervislik ja igav...";;
+    4) echo "Good choice innit man";;
+    *) echo "Vale valik!";;
+esac
