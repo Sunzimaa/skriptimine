@@ -1,0 +1,16 @@
+#!/bin/bash
+# nimi: Marten Kabral
+# Skripti nimi: kujund
+# Skript trükib kujundi vastavalt ridade arvule
+
+# Kasutaja sisendi saamine
+read -p "Sisesta ridade arv: " ridade_arv
+
+# Kujundi trükkimine
+for ((i = ridade_arv; i >= 1; i--)); do
+    for ((j = 1; j <= i; j++)); do
+        echo -n "* "
+    done
+    echo
+done
+
