@@ -1,0 +1,22 @@
+#!/bin/bash
+# nimi: Marten Kabral
+# Skripti nimi: kujund2
+# Skripti ülesanne: Trükib kujundi vastavalt ridade arvule
+
+
+# Küsi kasutajalt  ridade arvu
+read -p "Sisestage ridade arv: " rows
+
+# Trükib pööratud kujund
+for ((i=rows; i>=1; i--)); do
+    for ((k=1; k<=i; k++)); do
+        echo -n "*"
+    done
+    for ((j=1; j<=(rows-i)*2; j++)); do
+        echo -n " "
+    done
+    for ((k=1; k<=i; k++)); do
+        echo -n "*"
+    done
+    echo
+done
