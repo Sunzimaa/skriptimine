@@ -1,0 +1,10 @@
+#!/bin/bash
+# nimi: Marten Kabral
+# Skripti nimi: info
+# Skript tervitab kasutajat ja väljastab kuupäeva ja kellaaja
+ 
+# Tervitab kasutajat
+echo "Tere, $(whoami)!"
+
+# Võtab tänase kuupäeva
+echo "Täna on $(date '+%d.%m.%Y') kell $(date '+%H:%M')"
