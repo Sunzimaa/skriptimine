@@ -19,7 +19,7 @@ emails_file="$output_dir/meilid.txt"
 mkdir -p "$output_dir"
 
 # Lõika eesnimed ja salvesta need 
-cut -d',' -f2 "$input_file" | tr '[:upper:]' '[:lower:]' | sed 's/^[ \t]*//;s/[ \t]*$//' > "$first_names_file"
+cut -d',' -f2 "$input_file" | sed 's/;.*//;s/[0-9]*-.*//;s/^[ \t]*//;s/[ \t]*$//' > "$first_names_file"
 
 # Lõika perekonnanimed ja salvesta need
 cut -d',' -f1 "$input_file" | tr '[:upper:]' '[:lower:]' | sed 's/^[ \t]*//;s/[ \t]*$//' > "$last_names_file"
