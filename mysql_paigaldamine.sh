@@ -6,7 +6,7 @@ if [ "$(id -u)" -ne 0 ]; then
   exit 1
 fi
 
-# Eeltöö: vajalikud sõltuvused
+# Uuendatakse pakettide nimekirja
 echo "Uuendatakse pakettide nimekirja ja paigaldatakse sõltuvused..."
 apt update -y
 apt install -y wget lsb-release gnupg
@@ -18,11 +18,11 @@ wget https://dev.mysql.com/get/mysql-apt-config_0.8.30-1_all.deb
 echo "Installitakse MySQL APT konfiguratsioonifail..."
 dpkg -i mysql-apt-config_0.8.30-1_all.deb
 
-# Uuenda repositooriumi nimekiri
+# Uuendab repositooriumi nimekirja
 echo "Uuendatakse paketid..."
 apt update
 
-# Paigalda MySQL server
+# Paigaldab MySQL server
 echo "Paigaldatakse MySQL server..."
 apt install mysql-server -y
 
